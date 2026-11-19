@@ -1,34 +1,49 @@
-# Dynamic Island OS — Liquid Glass Edition
+# Dynamic Island OS — Ultimate Liquid Glass
 
-Starter project: HTML, CSS, JavaScript, Vite and Capacitor.
+Aplicación Android basada en HTML5, CSS3, JavaScript y Capacitor 6. Desarrollo incremental: las funciones no implementadas se identifican explícitamente en la interfaz.
 
-## Incluye
+## Implementado en esta versión
 - Interfaz Liquid Glass adaptable a móvil.
-- Reloj en vivo.
-- Mensajes de demostración en la isla.
-- Temporizador de 10 segundos mientras la app está abierta.
-- Vibración opcional si el navegador/dispositivo la permite.
-- Configuración inicial para Capacitor Android.
-- GitHub Actions para generar un APK debug como artefacto.
+- Isla interactiva compacta/expandida dentro de la app.
+- Reloj y fecha locales.
+- Temporizador con deadline basado en reloj del sistema, persistencia con Capacitor Preferences y notificación local programada.
+- Cronómetro con pausa, reanudación y vueltas.
+- Workflow GitHub Actions para compilar un APK debug y publicarlo como artefacto.
 
-## Importante
-Esto es un prototipo inicial, NO la app final. Todavía no implementa overlay persistente sobre otras apps, acceso a notificaciones Android, controles de MediaSession ni integración de llamadas. Esas funciones necesitan código Android nativo, permisos especiales y pruebas en el Moto G72.
+## Aún no implementado
+- Servicio Android de superposición persistente.
+- NotificationListenerService para notificaciones de otras aplicaciones.
+- Puente MediaSession para controles multimedia.
+- Detección/control de llamadas.
+- Eventos de batería, Bluetooth y auriculares dentro de la isla.
+- Gestor nativo de actividades simultáneas y recuperación tras reinicios.
+
+No se muestran datos falsos para estas funciones. Requieren módulos Android nativos y pruebas en hardware real.
 
 ## Requisitos
-Node.js 20+, npm y Android Studio.
+- Node.js 20+
+- Java 17
+- Android SDK / Android Studio para compilación local
 
-## Ejecutar prototipo web
+## Desarrollo
 ```bash
 npm install
 npm run dev
 ```
 
-## Preparar Android
+## Compilar Android
 ```bash
+npm install
 npm run build
 npx cap add android
 npx cap sync android
-npx cap open android
+cd android
+./gradlew assembleDebug
 ```
+APK: `android/app/build/outputs/apk/debug/app-debug.apk`
 
-En Android Studio: Build > Build Bundle(s) / APK(s) > Build APK(s).
+## GitHub Actions
+El workflow `.github/workflows/build-apk.yml` se ejecuta al hacer push a main o manualmente desde Actions. Configura Node, Java y Android SDK, instala dependencias, sincroniza Capacitor, compila Gradle y publica el APK debug como artifact.
+
+## Permisos
+La notificación local del temporizador usa Capacitor Local Notifications. Android puede pedir permiso para publicar notificaciones. Esta versión no solicita acceso a notificaciones de otras aplicaciones ni permiso de superposición.
