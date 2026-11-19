@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080b12">
+  <title>Dynamic Island OS</title>
+</head>
+<body>
+  <div class="island" id="island" aria-live="polite"><span class="dot"></span><strong id="islandText">DYNAMIC ISLAND</strong></div>
+  <header class="heading">
+    <p class="eyebrow">LIQUID GLASS EDITION</p>
+    <h1>Dynamic Island OS</h1>
+    <p class="muted">Tu centro de control inteligente</p>
+  </header>
+  <main class="panel">
+    <div class="clock" id="clock">--:--</div>
+    <p class="muted center">Panel principal</p>
+    <button id="demoButton">✨ Probar isla dinámica</button>
+    <button id="timerButton">⏱ Iniciar temporizador de 10 segundos</button>
+    <button id="stopButton" class="secondary">⏹ Detener temporizador</button>
+    <button id="batteryButton" class="secondary">🔋 Consultar batería</button>
+    <p id="status" class="status" role="status">Sistema iniciado</p>
+  </main>
+  <footer class="footnote">Prototipo visual. Las funciones nativas se agregarán en etapas posteriores.</footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
