@@ -1,17 +1,16 @@
 {
   "name": "dynamic-island-os",
-  "version": "0.2.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@capacitor/android": "^6.2.1",
     "@capacitor/core": "^6.2.1",
-    "@capacitor/local-notifications": "^6.1.0",
     "@capacitor/preferences": "^6.0.2"
   },
   "devDependencies": {
