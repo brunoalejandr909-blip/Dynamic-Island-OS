@@ -24,9 +24,15 @@ export function initStopwatch({ onChange = () => {} } = {}) {
     try {
       const saved = await Preferences.get({ key: KEY });
       if (saved.value) {
-        const s = JSON.parse(saved.value); elapsed = Number(s.elapsed) || 0; laps = Array.isArray(s.laps) ? s.laps : [];
-        running = Boolean(s.running); startedAt = running ? Date.now() : 0;
-        $('laps').innerHTML = laps.map((lap, i) => '<li><span>Vuelta ' + (i + 1) + '</span><b>' + fmt(lap) + '</b></li>').join('');
+        const s = JSON.parse(saved.value);
+        elapsed = Math.max(0, Number(s.elapsed) || 0);
+        running = Boolean(s.running);
+        startedAt = running ? (Number(s.startedAt) || Date.now()) : 0;
+        if (running) elapsed += Math.max(0, Date.now() - startedAt);
+        startedAt = running ? Date.now() : 0;
+        laps = Array.isArray(s.laps) ? s.laps.filter(Number.isFinite) : [];
+        $('laps').innerHTML = laps.map((lap, i) => '<li><span>Vuelta ' + (laps.length - i) + '</span><b>' + fmt(lap) + '</b></li>').join('');
+        await persist();
       }
     } catch {}
     tick();
