@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b12">
+  <title>Dynamic Island OS</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #202b40, #080b12 65%);
+      color: white;
+      font-family: system-ui, sans-serif;
+      padding: 24px;
+    }
+    .island {
+      margin: 12px auto 55px;
+      width: min(100%, 360px);
+      min-height: 72px;
+      border: 1px solid #ffffff30;
+      border-radius: 40px;
+      background: #08090dcc;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 12px 40px #0009;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 15px 22px;
+      transition: .3s;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #47e5a5;
+      box-shadow: 0 0 15px #47e5a5;
+    }
+    h1 { font-size: 25px; text-align: center; }
+    .subtitle { color: #aab5c8; text-align: center; }
+    .panel {
+      max-width: 430px;
+      margin: auto;
+      padding: 22px;
+      border: 1px solid #ffffff20;
+      border-radius: 26px;
+      background: #ffffff0b;
+      backdrop-filter: blur(18px);
+    }
+    .clock {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+    button {
+      width: 100%;
+      padding: 16px;
+      margin: 7px 0;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1px solid #ffffff25;
+      border-radius: 17px;
+      background: #ffffff12;
+    }
+    button:active { background: #ffffff30; }
+    #status {
+      text-align: center;
+      color: #aab5c8;
+      min-height: 24px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="island" id="island">
+    <span class="dot"></span>
+    <strong id="islandText">DYNAMIC ISLAND</strong>
+  </div>
+
+  <h1>LIQUID GLASS OS</h1>
+  <p class="subtitle">Tu centro de control inteligente</p>
+
+  <main class="panel">
+    <div class="clock" id="clock">00:00</div>
+    <p class="subtitle">Panel principal</p>
+
+    <button onclick="notifyIsland('¡Bienvenido a Dynamic Island OS!')">
+      ✨ Probar isla dinámica
+    </button>
+
+    <button onclick="startTimer()">
+      ⏱ Iniciar temporizador de 10 segundos
+    </button>
+
+    <button onclick="stopTimer()">
+      ⏹ Detener temporizador
+    </button>
+
+    <button onclick="notifyIsland('Batería: ' + (navigator.getBattery ? 'consultando...' : 'no disponible'))">
+      🔋 Estado de batería
+    </button>
+
+    <div id="status">Sistema iniciado correctamente</div>
+  </main>
+
+  <script>
+    const clock = document.getElementById('clock');
+    const islandText = document.getElementById('islandText');
+    const statusText = document.getElementById('status');
+    let timer = null;
+
+    function updateClock() {
+      clock.textContent = new Date().toLocaleTimeString('es-AR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function notifyIsland(message) {
+      islandText.textContent = message;
+      statusText.textContent = message;
+
+      if (navigator.vibrate) navigator.vibrate(80);
+
+      setTimeout(() => {
+        islandText.textContent = 'DYNAMIC ISLAND';
+      }, 3500);
+    }
+
+    function startTimer() {
+      stopTimer();
+      let seconds = 10;
+
+      notifyIsland('Temporizador: 10 segundos');
+
+      timer = setInterval(() => {
+        seconds--;
+        islandText.textContent = 'Temporizador: ' + seconds + 's';
+
+        if (seconds <= 0) {
+          stopTimer();
+          notifyIsland('¡Tiempo terminado!');
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timer) clearInterval(timer);
+      timer = null;
+      islandText.textContent = 'DYNAMIC ISLAND';
+      statusText.textContent = 'Temporizador detenido';
+    }
+  </script>
+</body>
+</html>
