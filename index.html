@@ -1,163 +1,46 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080b12">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070910">
+  <meta name="description" content="Dynamic Island OS — Liquid Glass Edition">
   <title>Dynamic Island OS</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #202b40, #080b12 65%);
-      color: white;
-      font-family: system-ui, sans-serif;
-      padding: 24px;
-    }
-    .island {
-      margin: 12px auto 55px;
-      width: min(100%, 360px);
-      min-height: 72px;
-      border: 1px solid #ffffff30;
-      border-radius: 40px;
-      background: #08090dcc;
-      backdrop-filter: blur(24px);
-      box-shadow: 0 12px 40px #0009;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding: 15px 22px;
-      transition: .3s;
-    }
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #47e5a5;
-      box-shadow: 0 0 15px #47e5a5;
-    }
-    h1 { font-size: 25px; text-align: center; }
-    .subtitle { color: #aab5c8; text-align: center; }
-    .panel {
-      max-width: 430px;
-      margin: auto;
-      padding: 22px;
-      border: 1px solid #ffffff20;
-      border-radius: 26px;
-      background: #ffffff0b;
-      backdrop-filter: blur(18px);
-    }
-    .clock {
-      text-align: center;
-      font-size: 48px;
-      font-weight: 700;
-      margin: 15px 0;
-    }
-    button {
-      width: 100%;
-      padding: 16px;
-      margin: 7px 0;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      border: 1px solid #ffffff25;
-      border-radius: 17px;
-      background: #ffffff12;
-    }
-    button:active { background: #ffffff30; }
-    #status {
-      text-align: center;
-      color: #aab5c8;
-      min-height: 24px;
-      margin-top: 15px;
-    }
-  </style>
 </head>
 <body>
-  <div class="island" id="island">
-    <span class="dot"></span>
-    <strong id="islandText">DYNAMIC ISLAND</strong>
+  <div id="app">
+    <header class="topbar"><span class="brand-mark">◈</span><span>DYNAMIC ISLAND <b>OS</b></span><span class="build-tag">LIQUID GLASS</span></header>
+    <section class="hero">
+      <div class="island-wrap"><button class="island" id="island" aria-label="Expandir isla"><span class="island-camera"></span><span class="island-label" id="island-label">DYNAMIC ISLAND</span><span class="island-pulse"></span></button></div>
+      <p class="eyebrow">CENTRO DE ACTIVIDAD</p><h1>Todo en un<br><em>solo lugar.</em></h1>
+      <p class="hero-copy">Una experiencia Liquid Glass para Android.</p>
+      <div class="glass-card clock-card"><span class="muted-label">HORA LOCAL</span><div class="clock" id="clock">--:--</div><div class="date" id="date"></div></div>
+    </section>
+    <main class="dashboard">
+      <section class="glass-card module-card">
+        <div class="card-heading"><div><span class="eyebrow">01 / CUENTA REGRESIVA</span><h2>Temporizador</h2></div><span class="module-icon">◷</span></div>
+        <div class="timer-readout" id="timer-readout">00:00</div>
+        <div class="timer-inputs"><label>MIN<input id="timer-min" type="number" min="0" max="599" value="1" inputmode="numeric"></label><label>SEG<input id="timer-sec" type="number" min="0" max="59" value="0" inputmode="numeric"></label></div>
+        <div class="button-row"><button class="primary-btn" id="timer-start">Iniciar</button><button class="secondary-btn" id="timer-pause" disabled>Pausar</button><button class="secondary-btn" id="timer-reset">Reiniciar</button></div>
+        <p class="status-line" id="timer-status">Listo para comenzar</p>
+      </section>
+      <section class="glass-card module-card">
+        <div class="card-heading"><div><span class="eyebrow">02 / TIEMPO TRANSCURRIDO</span><h2>Cronómetro</h2></div><span class="module-icon">◴</span></div>
+        <div class="timer-readout" id="stopwatch-readout">00:00.00</div>
+        <div class="button-row"><button class="primary-btn" id="sw-start">Iniciar</button><button class="secondary-btn" id="sw-lap" disabled>Vuelta</button><button class="secondary-btn" id="sw-reset">Reiniciar</button></div>
+        <ol class="laps" id="laps"></ol>
+      </section>
+      <section class="glass-card module-card system-card">
+        <div class="card-heading"><div><span class="eyebrow">03 / INTEGRACIONES</span><h2>Estado del sistema</h2></div><span class="module-icon">⌁</span></div>
+        <div class="integration-row"><span>Notificaciones Android (otras apps)</span><span class="state-pill pending">Pendiente</span></div>
+        <div class="integration-row"><span>Controles multimedia del sistema</span><span class="state-pill pending">Pendiente</span></div>
+        <div class="integration-row"><span>Superposición persistente</span><span class="state-pill pending">Pendiente</span></div>
+        <div class="integration-row"><span>Detección de llamadas</span><span class="state-pill pending">Pendiente</span></div>
+        <p class="footnote">Estas integraciones no se simulan. Solo se marcarán disponibles cuando exista un módulo Android real y se haya concedido el permiso necesario.</p>
+      </section>
+    </main>
+    <footer>DYNAMIC ISLAND OS <span>BUILD 0.2.0 · ANDROID</span></footer>
   </div>
-
-  <h1>LIQUID GLASS OS</h1>
-  <p class="subtitle">Tu centro de control inteligente</p>
-
-  <main class="panel">
-    <div class="clock" id="clock">00:00</div>
-    <p class="subtitle">Panel principal</p>
-
-    <button onclick="notifyIsland('¡Bienvenido a Dynamic Island OS!')">
-      ✨ Probar isla dinámica
-    </button>
-
-    <button onclick="startTimer()">
-      ⏱ Iniciar temporizador de 10 segundos
-    </button>
-
-    <button onclick="stopTimer()">
-      ⏹ Detener temporizador
-    </button>
-
-    <button onclick="notifyIsland('Batería: ' + (navigator.getBattery ? 'consultando...' : 'no disponible'))">
-      🔋 Estado de batería
-    </button>
-
-    <div id="status">Sistema iniciado correctamente</div>
-  </main>
-
-  <script>
-    const clock = document.getElementById('clock');
-    const islandText = document.getElementById('islandText');
-    const statusText = document.getElementById('status');
-    let timer = null;
-
-    function updateClock() {
-      clock.textContent = new Date().toLocaleTimeString('es-AR', {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    function notifyIsland(message) {
-      islandText.textContent = message;
-      statusText.textContent = message;
-
-      if (navigator.vibrate) navigator.vibrate(80);
-
-      setTimeout(() => {
-        islandText.textContent = 'DYNAMIC ISLAND';
-      }, 3500);
-    }
-
-    function startTimer() {
-      stopTimer();
-      let seconds = 10;
-
-      notifyIsland('Temporizador: 10 segundos');
-
-      timer = setInterval(() => {
-        seconds--;
-        islandText.textContent = 'Temporizador: ' + seconds + 's';
-
-        if (seconds <= 0) {
-          stopTimer();
-          notifyIsland('¡Tiempo terminado!');
-        }
-      }, 1000);
-    }
-
-    function stopTimer() {
-      if (timer) clearInterval(timer);
-      timer = null;
-      islandText.textContent = 'DYNAMIC ISLAND';
-      statusText.textContent = 'Temporizador detenido';
-    }
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
